@@ -11,17 +11,20 @@ const ListaPaises = [
 ];
 
 const SelectorPaises = () => {
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(0);
   const [paisesAcceso, setPaisesAccesso] = useState([])
 
   useEffect(() => {
     const actualizarListaAcceso = () => {
-      console.log(selectedCountry.target.value);
+      if (selectedCountry === 0) return;
+      const paisesAcceso = ListaPaises[selectedCountry - 1].entrada;
+      const paisesPermitidos = ListaPaises.filter(({ id }) => paisesAcceso.includes(id));
+      setPaisesAccesso(paisesPermitidos);
     };
-
     actualizarListaAcceso()
   }, [selectedCountry]);
 
+  useEffect(() => { }, [])
 
 
   const mostrarPaisesAcceso = (paisesAcceso) => {
@@ -38,10 +41,13 @@ const SelectorPaises = () => {
 
   return (
     <div>
-      <select id="selectPaises" onChange={setSelectedCountry}>
+      <select id="selectPaises" onChange={(e) => setSelectedCountry(e.target.value)} value={selectedCountry}>
         <option value="0">----</option>
         {ListaPaises.map(({ id, nombre }) => (<option value={id} key={id}>{nombre}</option>))}
       </select>
+      <ul>
+        {paisesAcceso.map(({ nombre, id }) => (<li key={id}>{nombre}</li>))}
+      </ul>
     </div>
   );
 };
