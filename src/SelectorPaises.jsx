@@ -12,7 +12,7 @@ const ListaPaises = [
 
 const SelectorPaises = () => {
   const [selectedCountry, setSelectedCountry] = useState(0);
-  const [paisesAcceso, setPaisesAccesso] = useState([])
+  const [paisesAcceso, setPaisesAccesso] = useState([]);
 
   useEffect(() => {
     const actualizarListaAcceso = () => {
